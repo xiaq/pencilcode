@@ -65,6 +65,13 @@ function scanHtmlTop(html) {
   }
 }
 
+// A poor man's Python-to-JavaScript compiler.
+// It compiles print calls to console.log calls so that the "hello world"
+// program works.
+function python2js(text) {
+  return text.replace(/print (.*)/g, 'console.log($1);');
+}
+
 // The job of this function is to take: HTML, CSS, and script content,
 // and merge them into one HTML file.
 function wrapTurtle(doc, domain, pragmasOnly, setupScript) {
@@ -174,6 +181,13 @@ function wrapTurtle(doc, domain, pragmasOnly, setupScript) {
     seeline = 'eval(this._start_ide_js_);\n\n';
   } else if (/coffeescript/.test(maintype)) {
     seeline = 'eval(this._start_ide_cs_)\n\n';
+  } else if (/python/.test(maintype)) {
+    // This doesn't seem to be the correct way to plug in a Python translator.
+    // We should set up the Python translator so that it interprets <script>
+    // tags with type="text/python" on the fly like CoffeeScript.
+    // Anyway...
+    text = python2js(text);
+    maintype = 'text/javascript';
   }
   var mainscript = '<script type="' + maintype + '">\n' + seeline;
   if (!pragmasOnly) {

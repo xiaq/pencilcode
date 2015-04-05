@@ -1464,6 +1464,7 @@ function modeForMimeType(mimeType) {
     'text/html': 'html',
     'text/css': 'css',
     'text/javascript': 'javascript',
+    'text/python': 'python',
     'text/plain': 'text',
     'image/svg+xml': 'xml',
     'text/xml': 'xml'
@@ -1483,6 +1484,8 @@ function dropletModeForMimeType(mimeType) {
     'text/x-pencilcode': 'coffee',
     'text/coffeescript': 'coffee',
     'text/javascript': 'javascript',
+    // doesn't work yet - there is no Python mode in Droplet
+    'text/python': 'python',
   }[mimeType];
   if (!result) {
     result = 'coffee';
@@ -1644,7 +1647,10 @@ function showPaneEditorLanguagesDialog(pane) {
       'Coffeescript</label><br>' +
       '<label title="Use the Standard Web Language">' +
       '<input type="radio" value="text/javascript" name="lang"> ' +
-      'Javascript</label>' +
+      'Javascript</label><br>' +
+      '<label title="Use the Best Language :)">' +
+      '<input type="radio" value="text/python" name="lang"> ' +
+      'Python</label>' +
       '</div>' +
       '<div style="padding:4px 5px 12px">' +
       '<label title="Edit Cascading Style Sheets">' +
